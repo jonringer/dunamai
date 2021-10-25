@@ -27,6 +27,8 @@ jobs:
           - '3.6'
           - '3.7'
           - '3.8'
+          - '3.9'
+          - '3.10'
         git-version:
           - default  # 2.28.0 or newer
           - '2.21.0'  # https://lore.kernel.org/git/CAKqNo6RJqp94uLMf8Biuo=ZvMZB9Mq6RRMrUgsLW4u1ks+mnOA@mail.gmail.com/T/#u
@@ -65,3 +67,7 @@ jobs:
           pip install poetry
           poetry install
           poetry run pytest --verbose --cov --cov-report term-missing
+
+          # Test that get_version() finds Dunamai from the virtual environment and not from the global Python:
+          pip install dunamai==1.0.0
+          poetry run pytest tests/unit -k test__get_version__
